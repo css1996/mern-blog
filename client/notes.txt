@@ -70,4 +70,50 @@ export default {
           <Route path="/projects" element={<Projects />} />
        </Routes>
     </BrowserRouter>
+
+    Day - 3 
+    ========
+
+    # Create Header components
        
+       - create component folder under src folder
+       - component
+            - Header.jsx
+       - add Header.jsx file inside App.jsx 
+            - after BrowserRouter and before Routes     
+
+      - create a header folder we can use "flowbite"
+
+      => Flowbite React is an open-source UI component library built with React components, Tailwind CSS utility classes and based on the Flowbite design system    
+
+      # install flowbite command "npm i flowbite-react"
+
+      - Add the Flowbite React content path and plugin to tailwind.config.js:
+            - const flowbite = require("flowbite-react/tailwind");
+             content: [
+                    flowbite.content(),
+                   ],
+                   plugins: [flowbite.plugin(),
+                   ]
+
+        # install npm i react-icons
+
+ *** Search functionality ***
+     ====================       
+
+        => For Search functionalites using  'react-icons/ai' and flowbite-react
+
+        import {Button, TextInput} from 'flowbite-react';
+        import {AiOutlineSearch} from 'react-icons/ai';
+
+         <form>
+          <TextInput 
+              type='text'
+              placeholder='Search...'
+              rightIcon={AiOutlineSearch}
+              className='hidden lg:inline'
+          />
+       </form>
+       <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+        <AiOutlineSearch />
+       </Button>
