@@ -1,4 +1,8 @@
 
+
+Day - 1
+========
+
 1. Create project:
 
     npm create vite@latest my-project -- --template react
@@ -38,3 +42,32 @@ export default {
     5. Start your build process:
 
          Run your build process with npm run dev.
+
+
+   Day - 2 
+   ========      
+
+   # Create pages and routes
+
+      => install  npm i react-router-dom     
+    
+ -> create pages folder
+         - About.jsx, Dashboard.jsx, SignIn.jsx, SignUp.jsx, Home.jsx, Projects.jsx
+         
+ -> In App.js
+       import {BrowserRouter, Routes, Route} from 'react-router-dom';
+     and import all pages like About, home, SignIn,.....etc
+
+     inside return 
+
+    <BrowserRouter>
+       <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects />} />
+       </Routes>
+    </BrowserRouter>
+       
