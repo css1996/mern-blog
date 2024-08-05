@@ -54,7 +54,45 @@ export const signin = async (req, res, next) =>{
     
 
     } catch (error) {
-        next(error);
-        
+        next(error);       
+ 
     }
+}
+
+
+export const google = async (req, res, next) =>{
+    // if user exist we wanna sigin the user. If doesn't exist we wanna create a new user
+  
+    const {email, name, googlePhotoUrl} = req.body;
+    try {
+        const user = await User.findOne({email});    // find user exist or not
+      if(user){                 // if the user exist
+        const token = jwt.sign({id:user._id}, process.env.JWT_SECRET);
+        const {password, ...rest} = user._doc;
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+        }).json(rest);
+      }else{
+        const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8); // Most secure + Math.random().....
+        const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
+        const newuser = new User({
+            username: name.toLowerCase().split('').join('') + Math.random().toString(9).slice(-4),           // like  Chaleendram Saisankar  => chaleendramsaisankar997766       
+            email,  
+            password: hashedPassword,
+            profilePicture: googlePhotoUrl,
+        });
+        await newuser.save();
+        const token = jwt.sign({id: newuser._id}, process.env.JWT_SECRET);
+        const {password, ...rest} = newuser._doc;
+        res.status(200).cookie('access_token', token, {
+            httpOnly: true,
+        }).json(rest);
+    }
+    
+    } catch (error) {
+        next(error);
+    }
+
+
 }
